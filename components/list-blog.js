@@ -17,7 +17,7 @@ export default function BlogList({list = [], pending}) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const [blogId, setBlogId] = useState(null)
-  const limit = useSelector(blogPaginationSelectors.selectLimit)
+  const params = useSelector(blogPaginationSelectors.selectParams)
 
   const handleClickEdit = (id) => {
     setBlogId(id)
@@ -27,7 +27,7 @@ export default function BlogList({list = [], pending}) {
   const onDone = () => {
     setShow(false)
     dispatch(blogPaginationActions.changePage(1))
-    dispatch(blogActions.fetchList({page: 1, limit}))
+    dispatch(blogActions.fetchList(params))
   }
 
   return (
@@ -46,7 +46,7 @@ export default function BlogList({list = [], pending}) {
                 <Image
                   className='bg-info'
                   src={
-                    (image.startsWith('data:') && image) ||
+                    ((image + '').startsWith('data:') && image) ||
                     `/api/imageproxy?url=${encodeURIComponent(image)}`
                   }
                   width='100%'

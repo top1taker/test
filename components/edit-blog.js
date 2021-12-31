@@ -35,14 +35,14 @@ export default function EditBlog({blogId, onDone}) {
     }
   }, [blogId])
   console.log('form', form)
-  const {image = ''} = form
+  const {image} = form
   return (
     <>
       <Form.Group controlId='formFileSm' className='mb-3'>
         <Image
           className='bg-info'
           src={
-            (image.startsWith('data:') && image) ||
+              ((image + '').startsWith('data:') && image) ||
             `/api/imageproxy?url=${encodeURIComponent(image)}`
           }
           width={500}
